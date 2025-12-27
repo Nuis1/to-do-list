@@ -12,16 +12,25 @@
 
     <!-- Icon -->
     <div class="flex justify-center mb-4">
-      <div class="w-16 h-16 rounded-full bg-indigo-500 flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" 
-             class="w-8 h-8 text-white" 
-             fill="none" 
-             viewBox="0 0 24 24" 
-             stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M13 7l5 5m0 0l-5 5m5-5H6" />
+      <div class="w-20 h-20 rounded-full bg-indigo-500 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 64 64"
+            fill="none"
+            stroke="white"
+            stroke-width="5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-13 h-13">
+
+          <!-- Arrow -->
+          <line x1="10" y1="32" x2="34" y2="32" />
+          <polyline points="26 24 34 32 26 40" />
+
+          <!-- Door -->
+          <path d="M40 18h8v28h-8" />
         </svg>
       </div>
+
     </div>
 
     <!-- Title -->
@@ -60,7 +69,7 @@
     <!-- Register -->
     <p class="text-center text-sm text-gray-500 mt-4">
       Belum punya akun?
-      <a href="#" class="text-indigo-500 hover:underline">Daftar</a>
+      <a href="register.php" class="text-indigo-500 hover:underline">Daftar</a>
     </p>
 
   </div>
