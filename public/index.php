@@ -1,12 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.5">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <title>Document</title>
-</head>
-<body>
-    <h1>tes</h1>
-</body>
-</html>
+<?php
+
+define('BASE_PATH', dirname(__DIR__));
+
+require_once BASE_PATH . '/app/core/Router.php';
+
+session_start();
+
+$router = new Router();
+
+$router->get('/', 'HomeController@index');
+$router->get('/content1', 'ContentController@content1');
+$router->get('/content2', 'ContentController@content2');
+$router->get('/content3', 'ContentController@content3');
+
+$router->run();
