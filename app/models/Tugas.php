@@ -7,8 +7,15 @@ class Tugas {
         $this->conn = $conn;
     }
 
-    public function getAll() {
-        $query = 'SELECT * FROM tugas ORDER BY tanggal_tenggat ASC';
+    public function getAll($kondisi) {
+        $query = 'SELECT * FROM tugas ';
+        if($kondisi === 'all') {
+
+        } elseif($kondisi === 'Active') {
+            $query .= "WHERE status = 'aktif'";
+        } elseif($kondisi === 'Selesai') {
+            $query .= 'WHERE status = "selesai"';
+        }
         return $this->conn->query($query);
     }
 }

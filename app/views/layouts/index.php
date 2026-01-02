@@ -1,3 +1,16 @@
+<?php
+require_once '../app/core/database.php';
+require_once '../app/controllers/TugasController.php';
+
+$controller = new TugasController($conn);
+$tugasList = $controller->index('all');
+$tugasListActive = $controller->index('Active');
+$tugasListSelesai = $controller->index('Selesai');
+$jumlah_tugas = count($tugasList);
+$jumlah_tugas_aktif = count($tugasListActive);
+$jumlah_tugas_selesai = count($tugasListSelesai);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,7 +61,7 @@
                 <div class="p-4 flex justify-between items-center">
                     <div>
                         <p class="font-light text-lg">Total Tugas</p>
-                        <p class="text-2xl font-bold mt-2">5</p>
+                        <p class="text-2xl font-bold mt-2"><?= $jumlah_tugas ?></p>
                     </div>
                     <div>
                         <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -67,7 +80,7 @@
                 <div class="p-4 flex justify-between items-center">
                     <div>
                         <p class="font-light text-lg">Aktif</p>
-                        <p class="text-2xl font-bold mt-2">4</p>
+                        <p class="text-2xl font-bold mt-2"><?= $jumlah_tugas_aktif ?></p>
                     </div>
                     <div>
                         <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,7 +94,7 @@
                 <div class="p-4 flex justify-between items-center">
                     <div>
                         <p class="font-light text-lg">Selesai</p>
-                        <p class="text-2xl font-bold mt-2">1</p>
+                        <p class="text-2xl font-bold mt-2"><?= $jumlah_tugas_selesai ?></p>
                     </div>
                     <div>
                         <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">

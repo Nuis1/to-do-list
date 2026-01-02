@@ -10,8 +10,8 @@ class TugasController {
         $this->model = new Tugas($conn);
     }
 
-    public function index() {
-        $result = $this->model->getAll();
+    public function index($kondisi) {
+        $result = $this->model->getAll($kondisi);
         $today = new DateTime();
         $data = [];
 
