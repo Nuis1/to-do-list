@@ -2,7 +2,7 @@
 class ContentController {
     
     public function content1() {
-        $viewPath = BASE_PATH . '/app/views/layouts/content1.php';
+        $viewPath = dirname(__DIR__) . '/views/layouts/content1.php';
         
         if (file_exists($viewPath)) {
             require_once $viewPath;
@@ -12,7 +12,7 @@ class ContentController {
     }
     
     public function content2() {
-        $viewPath = BASE_PATH . '/app/views/layouts/content2.php';
+        $viewPath = dirname(__DIR__) . '/views/layouts/content2.php';
         
         if (file_exists($viewPath)) {
             require_once $viewPath;
@@ -22,7 +22,7 @@ class ContentController {
     }
     
     public function content3() {
-        $viewPath = BASE_PATH . '/app/views/layouts/content3.php';
+        $viewPath = dirname(__DIR__) . '/views/layouts/content3.php';
         
         if (file_exists($viewPath)) {
             require_once $viewPath;

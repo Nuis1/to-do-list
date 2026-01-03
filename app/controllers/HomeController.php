@@ -2,6 +2,10 @@
 
 class HomeController {
     public function index() {
-        require_once '../app/views/layouts/index.php';
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /login');
+            exit;
+        }
+        require_once dirname(__DIR__) . '/views/layouts/index.php';
     }
 }
