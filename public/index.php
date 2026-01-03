@@ -15,4 +15,7 @@ $router->get('/content3', 'ContentController@content3');
 $router->get('/login', 'LoginController@login');
 $router->get('/register', 'RegisterController@register');
 
+// POST (aksi)
+$router->post('/register', 'RegisterController@store');
+
 $router->run();

@@ -42,7 +42,7 @@
     </p>
 
     <!-- Form -->
-    <form action="/public/index.php?page=login&action=auth" method="post">
+    <form action="/login" method="POST">
       <!-- Email -->
       <div class="mb-4">
         <label class="block text-sm text-gray-600 mb-1">Email</label>
