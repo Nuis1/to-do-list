@@ -259,7 +259,7 @@
             </form>
 
             <p class="login-link">
-                Sudah memiliki akun? <a href="login.php">Masuk</a>
+                Sudah memiliki akun? <a href="/login">Masuk</a>
             </p>
         </div>
     </div>

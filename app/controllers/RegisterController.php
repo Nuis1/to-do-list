@@ -1,21 +1,19 @@
 <?php
 
+require_once BASE_PATH . '/app/models/User.php';
+
 class RegisterController {
-    // GET /register
+
     public function register() {
         require_once BASE_PATH . '/app/views/auth/register.php';
     }
 
-    // POST /register
     public function store() {
-        require_once BASE_PATH . '/app/models/User.php';
-
         $nama  = trim($_POST['nama']);
         $email = trim($_POST['email']);
         $password = $_POST['password'];
         $konfirmasi = $_POST['konfirmasi_password'];
 
-        // Validasi
         if ($password !== $konfirmasi) {
             $_SESSION['error'] = "Password dan konfirmasi tidak sama!";
             header("Location: /register");

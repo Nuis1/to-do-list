@@ -1,34 +1,37 @@
 <?php
 
+require_once BASE_PATH . '/app/core/database.php';
+
 class User {
-    private $db;
+    private $conn;
 
     public function __construct() {
-        require_once BASE_PATH . '/app/core/database.php';
-        $database = new Database();
-        $this->db = $database->connect();
+        global $conn;
+
+        if (!$conn) {
+            die("Koneksi database tidak tersedia");
+        }
+
+        $this->conn = $conn;
     }
 
     public function findByEmail($email) {
-        $stmt = $this->db->prepare(
-            "SELECT id_pengguna FROM pengguna WHERE email = :email"
+        $stmt = $this->conn->prepare(
+            "SELECT * FROM pengguna WHERE email = ? LIMIT 1"
         );
-        $stmt->execute(['email' => $email]);
-        return $stmt->fetch();
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
     }
 
     public function register($nama, $email, $password) {
-        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $hash = password_hash($password, PASSWORD_BCRYPT);
 
-        $stmt = $this->db->prepare(
+        $stmt = $this->conn->prepare(
             "INSERT INTO pengguna (nama_pengguna, email, kata_sandi)
-             VALUES (:nama, :email, :password)"
+             VALUES (?, ?, ?)"
         );
-
-        return $stmt->execute([
-            'nama' => $nama,
-            'email' => $email,
-            'password' => $hash
-        ]);
+        $stmt->bind_param("sss", $nama, $email, $hash);
+        return $stmt->execute();
     }
 }

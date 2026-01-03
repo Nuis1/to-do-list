@@ -2,6 +2,7 @@
 
 define('BASE_PATH', dirname(__DIR__));
 
+require_once BASE_PATH . '/app/core/database.php';
 require_once BASE_PATH . '/app/core/Router.php';
 
 session_start();
