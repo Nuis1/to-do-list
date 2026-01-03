@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__DIR__) . '/core/database.php';
-require_once dirname(__DIR__) . '/models/Tugas.php';
+require_once '../app/core/database.php';
+require_once '../app/models/Tugas.php';
 
 class TugasController
 {
@@ -22,7 +22,7 @@ class TugasController
         $today = new DateTime();
         $data = [];
 
-        foreach ($result as $row) {
+        while ($row = $result->fetch_assoc()) {
             $deadline = new DateTime($row['tanggal_tenggat']);
             $diff = (int)$today->diff($deadline)->format('%r%a');
             

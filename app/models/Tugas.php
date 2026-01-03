@@ -17,17 +17,16 @@ class Tugas
             $query .= "WHERE status = 'selesai'";
         }
         
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->conn->query($query);
     }
 
     public function toggleStatus($id)
     {
         // Ambil status saat ini
-        $stmt = $this->conn->prepare("SELECT status FROM tugas WHERE id_tugas = ?");
-        $stmt->execute([$id]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $statement = $this->conn->prepare("SELECT status FROM tugas WHERE id_tugas = ?");
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_assoc();
 
         if (!$result) return false;
 
@@ -37,6 +36,8 @@ class Tugas
 
         // Update status
         $update = $this->conn->prepare("UPDATE tugas SET status = ? WHERE id_tugas = ?");
-        return $update->execute([$statusBaru, $id]);
+        $update->bind_param("si", $statusBaru, $id);
+        
+        return $update->execute();
     }
 }

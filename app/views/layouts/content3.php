@@ -1,9 +1,6 @@
 <?php
-require_once dirname(dirname(__DIR__)) . '/core/database.php';
-
-$database = new Database();
-$conn = $database->connect();
-require_once dirname(dirname(__DIR__)) . '/controllers/TugasController.php';
+require_once '../app/core/database.php';
+require_once '../app/controllers/TugasController.php';
 
 $controller = new TugasController($conn);
 $tugasList = $controller->index('Selesai');
