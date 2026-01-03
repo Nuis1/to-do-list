@@ -61,7 +61,7 @@ $jumlah_tugas_selesai = count($tugasListSelesai);
                 <div class="p-4 flex justify-between items-center">
                     <div>
                         <p class="font-light text-lg">Total Tugas</p>
-                        <p class="text-2xl font-bold mt-2"><?= $jumlah_tugas ?></p>
+                        <p class="text-2xl font-bold mt-2" id="stat-total"><?= $jumlah_tugas ?></p>
                     </div>
                     <div>
                         <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,7 +80,7 @@ $jumlah_tugas_selesai = count($tugasListSelesai);
                 <div class="p-4 flex justify-between items-center">
                     <div>
                         <p class="font-light text-lg">Aktif</p>
-                        <p class="text-2xl font-bold mt-2"><?= $jumlah_tugas_aktif ?></p>
+                        <p class="text-2xl font-bold mt-2" id="stat-aktif"><?= $jumlah_tugas_aktif ?></p>
                     </div>
                     <div>
                         <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -94,7 +94,7 @@ $jumlah_tugas_selesai = count($tugasListSelesai);
                 <div class="p-4 flex justify-between items-center">
                     <div>
                         <p class="font-light text-lg">Selesai</p>
-                        <p class="text-2xl font-bold mt-2"><?= $jumlah_tugas_selesai ?></p>
+                        <p class="text-2xl font-bold mt-2" id="stat-selesai"><?= $jumlah_tugas_selesai ?></p>
                     </div>
                     <div>
                         <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
