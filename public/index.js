@@ -4,6 +4,80 @@ const contents = {
     content3: `/content3`,
 };
 
+function openModal() {
+    const modal = document.getElementById('modalOverlay');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden'; // Prevent scroll
+    
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('tanggal_tenggat').setAttribute('min', today);
+}
+
+function closeModal() {
+    const modal = document.getElementById('modalOverlay');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = 'auto'; // Enable scroll
+    
+    // Reset form
+    document.getElementById('formTambahTugas').reset();
+}
+
+function closeModalOnOverlay(event) {
+    if (event.target.id === 'modalOverlay') {
+        closeModal();
+    }
+}
+
+// Close modal with ESC key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeModal();
+    }
+});
+
+// ========== FORM SUBMIT ==========
+async function submitForm(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    
+    try {
+        const response = await fetch('tambah_tugas.php', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            // Close modal
+            closeModal();
+            
+            // Update stats
+            await updateStats();
+            
+            // Reload active content
+            const activeButton = document.querySelector('[class*="bg-[#4F46E5]"]');
+            if (activeButton) {
+                activeButton.click();
+            } else {
+                buttonActive('content1', document.getElementById('button1'));
+            }
+            
+            // Show success message (optional)
+            showNotification('Tugas berhasil ditambahkan!', 'success');
+        } else {
+            showNotification('Gagal menambahkan tugas: ' + (result.message || 'Unknown error'), 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Terjadi kesalahan saat menambahkan tugas', 'error');
+    }
+}
+
 async function updateStats() {
     try {
         const response = await fetch('get_stats.php');
