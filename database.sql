@@ -14,6 +14,7 @@ CREATE TABLE pengguna (
 -- Tabel Tugas
 CREATE TABLE tugas (
     id_tugas INT AUTO_INCREMENT PRIMARY KEY,
+    id_pengguna INT NOT NULL,
     judul VARCHAR(100) NOT NULL,
     deskripsi TEXT,
     status ENUM('aktif', 'selesai') DEFAULT 'aktif',
@@ -21,33 +22,36 @@ CREATE TABLE tugas (
     tanggal_selesai DATE DEFAULT NULL,
     dibuat_pada TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     diperbarui_pada TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    ON UPDATE CURRENT_TIMESTAMP
+    ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_pengguna) REFERENCES pengguna(id_pengguna)
+    ON DELETE CASCADE
 );
 
 
 -- Insert into pengguna
 INSERT INTO pengguna (nama_pengguna, email, kata_sandi)
-VALUES ('Nuis', 'nuis@email.com', 'password_hash');
+VALUES ('Nuis', 'nuis@email.com', '$2y$10$GRlj3eRrKYb5uO.EW2GvOeclvU2Q6l7wNLIF.blC1yfz0Hz9Ftn.2'); -- password: nuis12345
 
 
 INSERT INTO tugas 
-(judul, deskripsi, status, tanggal_tenggat, tanggal_selesai) VALUES
--- Tugas 1 
-('Tugas 1', 'Lorem ipsum dolor sit amet consectetur adipisicing elit quisque faucibus.',
+(id_pengguna, judul, deskripsi, status, tanggal_tenggat, tanggal_selesai)
+VALUES
+
+(1, 'Mempelajari konsep basis data', 'Mempelajari pengertian database, DBMS, serta contoh penerapannya dalam sistem informasi.', 
  'aktif', '2025-12-11', NULL),
 
--- Tugas 2 
-('Tugas 2', 'Lorem ipsum dolor sit amet consectetur adipisicing elit quisque faucibus.',
- 'aktif', '2025-12-09', NULL),
 
--- Tugas 3 
-('Tugas 3', 'Lorem ipsum dolor sit amet consectetur adipisicing elit quisque faucibus.',
- 'aktif', '2025-12-14', NULL),
+(1, 'Meringkas materi UML', 'Membuat ringkasan tentang use case diagram, activity diagram, dan class diagram.', 
+'aktif', '2025-12-09', NULL),
 
--- Tugas 4 
-('Tugas 4', 'Lorem ipsum dolor sit amet consectetur adipisicing elit quisque faucibus.',
-'aktif', '2025-12-15', NULL),
 
--- Tugas 5 (Selesai)
-('Tugas 5', 'Lorem ipsum dolor sit amet consectetur adipisicing elit quisque faucibus.',
+(1, 'Latihan soal SQL dasar', 'Mengerjakan latihan SELECT, INSERT, UPDATE, dan DELETE pada database MySQL.', 
+'aktif', '2025-12-14', NULL),
+
+
+(1, 'Membaca materi jaringan komputer', 'Mempelajari model OSI dan TCP/IP beserta fungsi tiap layer.', 
+ 'aktif', '2025-12-15', NULL),
+
+(1, 'Membuat rangkuman materi PKN', 'Menyusun rangkuman tentang hak dan kewajiban warga negara Indonesia.', 
  'selesai', '2025-12-15', '2025-12-15');
+
