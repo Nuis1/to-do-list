@@ -214,7 +214,7 @@
                 </div>
             <?php endif; ?>
 
-            <form action="" method="POST" class="register-form">
+            <form action="/register" method="POST" class="register-form">
                 <div class="form-group">
                     <label for="nama">Nama Lengkap</label>
                     <input
