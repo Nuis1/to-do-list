@@ -2,6 +2,13 @@
 
 class HomeController {
     public function index() {
-        require_once '../app/views/layouts/index.php';
+        global $conn;
+
+        $viewPath = BASE_PATH . '/app/views/layouts/index.php';
+        if (file_exists($viewPath)) {
+            require_once $viewPath;
+        } else {
+            echo "View tidak ditemukan";
+        }
     }
 }

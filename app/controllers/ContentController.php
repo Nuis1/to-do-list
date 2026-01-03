@@ -2,6 +2,7 @@
 class ContentController {
     
     public function content1() {
+        global $conn;
         $viewPath = BASE_PATH . '/app/views/layouts/content1.php';
         
         if (file_exists($viewPath)) {
@@ -12,6 +13,7 @@ class ContentController {
     }
     
     public function content2() {
+        global $conn;
         $viewPath = BASE_PATH . '/app/views/layouts/content2.php';
         
         if (file_exists($viewPath)) {
@@ -22,6 +24,7 @@ class ContentController {
     }
     
     public function content3() {
+        global $conn;
         $viewPath = BASE_PATH . '/app/views/layouts/content3.php';
         
         if (file_exists($viewPath)) {
