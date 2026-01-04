@@ -136,7 +136,7 @@ $jumlah_tugas_selesai = count($tugasListSelesai);
                     </div>
                 </div>
                 <div class="add-task">
-                    <button onclick="openModal()" class="bg-[#4F46E5] text-white px-4 py-2 rounded-lg font-medium">+ Tambah Tugas</button>
+                    <button id="add-task-button" onclick="openModal()" class="bg-[#4F46E5] text-white px-4 py-2 rounded-lg font-medium">+ Tambah Tugas</button>
                 </div>
             </div>
         </div>

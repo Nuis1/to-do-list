@@ -22,6 +22,23 @@ $controller = new TugasController($conn);
 $id_user = $_SESSION['user']['id'];
 $tugasList = $controller->index('all', $id_user);
 
+if (empty($tugasList)) {
+    echo '<div class="bg-white shadow-sm hover:shadow-md duration-200 ease-in-out rounded-lg md:rounded-2xl p-4 md:p-5 text-center">
+     <div class="flex flex-col items-center">
+            <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="56" height="56" rx="28" fill="#F2F2F2"/>
+            <rect x="12.5" y="16.5" width="13" height="13" rx="6.5" fill="#F2F2F2" stroke="#CCCCCC" stroke-width="3"/>
+            <path d="M13.3354 37.1429L17.8809 40" stroke="#CCCCCC" stroke-width="3" stroke-linecap="round"/>
+            <path d="M25.8354 35L17.8809 40" stroke="#CCCCCC" stroke-width="3" stroke-linecap="round"/>
+            <path d="M45 18L33 18" stroke="#CCCCCC" stroke-width="3" stroke-linecap="round"/>
+            <path d="M45 27L33 27" stroke="#CCCCCC" stroke-width="3" stroke-linecap="round"/>
+            <path d="M45 37H33" stroke="#CCCCCC" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <p class="text-gray-500 text-lg">Belum ada tugas</p>
+            <p class="text-gray-500 text-lg">Mulai dengan tugas baru </p><br>
+        <button onclick="openModal()" class="bg-[#4F46E5] text-white px-4 py-2 rounded-lg font-medium">+ Tambah Tugas Pertama</button>
+    </div>';
+} else 
 
 ?>
 
