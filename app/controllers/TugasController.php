@@ -6,8 +6,9 @@ class TugasController
 {
     private $model;
 
-    public function __construct($conn)
+    public function __construct()
     {
+        global $conn;
         $this->model = new Tugas($conn);
     }
 
@@ -25,7 +26,7 @@ class TugasController
         while ($row = $result->fetch_assoc()) {
             $deadline = new DateTime($row['tanggal_tenggat']);
             $diff = (int)$today->diff($deadline)->format('%r%a');
-            
+
             // Normalisasi status
             $status = strtolower(trim($row['status']));
 
@@ -68,6 +69,29 @@ class TugasController
 
         // Redirect kembali
         header("Location: " . ($_SERVER['HTTP_REFERER'] ?? 'index.php'));
+        exit;
+    }
+
+    public function delete()
+    {
+        session_start();
+
+        if (!isset($_SESSION['user'])) {
+            header("Location: /login");
+            exit;
+        }
+
+        if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+            header("Location: /");
+            exit;
+        }
+
+        $id_tugas = (int) $_GET['id'];
+        $id_user  = $_SESSION['user']['id'];
+
+        $this->model->deleteByUser($id_tugas, $id_user);
+
+        header("Location: /");
         exit;
     }
 }

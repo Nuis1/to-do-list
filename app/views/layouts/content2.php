@@ -88,7 +88,8 @@ $tugasList = $controller->index('Active', $id_user);
                             <path d="M20.71 7.04004C21.1 6.65004 21.1 6.02004 20.71 5.63004L18.37 3.29004C17.98 2.90004 17.35 2.90004 16.96 3.29004L15.13 5.12004L18.88 8.87004L20.71 7.04004Z" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </button>
-                    <a href="delete.php?id=<?= $tugas['id_tugas'] ?>">
+                    <a href="/delete?id=<?= $tugas['id_tugas'] ?>"
+                        onclick="return confirm('Yakin ingin menghapus tugas ini?')">
                         <button class="cursor-pointer h-9 w-9 md:h-10 md:w-10 flex justify-center items-center hover:bg-red-200 rounded duration-200 ease-in-out">
                             <svg class="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9 0.5H15C16.3807 0.5 17.5 1.61929 17.5 3V5.5H6.5V3C6.5 1.61929 7.61929 0.5 9 0.5Z" stroke="#C00000" />

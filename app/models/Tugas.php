@@ -52,4 +52,13 @@ class Tugas
 
         return $update->execute();
     }
+    
+    public function deleteByUser($id_tugas, $id_user)
+    {
+        $stmt = $this->conn->prepare(
+            "DELETE FROM tugas WHERE id_tugas = ? AND id_pengguna = ?"
+        );
+        $stmt->bind_param("ii", $id_tugas, $id_user);
+        return $stmt->execute();
+    }
 }

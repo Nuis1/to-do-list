@@ -16,6 +16,7 @@ $router->get('/content3', 'ContentController@content3');
 $router->get('/login', 'LoginController@login');
 $router->get('/register', 'RegisterController@register');
 $router->get('/logout', 'LoginController@logout');
+$router->get('/delete', 'TugasController@delete');
 
 // POST (aksi)
 $router->post('/register', 'RegisterController@store');
