@@ -4,6 +4,19 @@ require_once '../app/controllers/TugasController.php';
 
 $controller = new TugasController($conn);
 $tugasList = $controller->index('Active');
+
+if (!isset($_SESSION['user'])) {
+    header("Location: /login");
+    exit;
+}
+
+$timeout = 3600; // 1 jam
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) > $timeout) {
+    session_unset();
+    session_destroy();
+    header("Location: /login");
+    exit;
+}
 ?>
 
 <?php foreach ($tugasList as $tugas): ?>

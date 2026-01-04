@@ -69,7 +69,7 @@
     <!-- Register -->
     <p class="text-center text-sm text-gray-500 mt-4">
       Belum punya akun?
-      <a href="register.php" class="text-indigo-500 hover:underline">Daftar</a>
+      <a href="/register" class="text-indigo-500 hover:underline">Daftar</a>
     </p>
 
   </div>

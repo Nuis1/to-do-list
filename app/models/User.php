@@ -2,10 +2,12 @@
 
 require_once BASE_PATH . '/app/core/database.php';
 
-class User {
+class User
+{
     private $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         global $conn;
 
         if (!$conn) {
@@ -15,7 +17,8 @@ class User {
         $this->conn = $conn;
     }
 
-    public function findByEmail($email) {
+    public function findByEmail($email)
+    {
         $stmt = $this->conn->prepare(
             "SELECT * FROM pengguna WHERE email = ? LIMIT 1"
         );
@@ -24,7 +27,23 @@ class User {
         return $stmt->get_result()->fetch_assoc();
     }
 
-    public function register($nama, $email, $password) {
+    public function login($email, $password)
+    {
+        $user = $this->findByEmail($email);
+
+        if (!$user) {
+            return false;
+        }
+
+        if (password_verify($password, $user['kata_sandi'])) {
+            return $user;
+        }
+
+        return false;
+    }
+
+    public function register($nama, $email, $password)
+    {
         $hash = password_hash($password, PASSWORD_BCRYPT);
 
         $stmt = $this->conn->prepare(

@@ -9,6 +9,23 @@ $tugasListSelesai = $controller->index('Selesai');
 $jumlah_tugas = count($tugasList);
 $jumlah_tugas_aktif = count($tugasListActive);
 $jumlah_tugas_selesai = count($tugasListSelesai);
+
+if (!isset($_SESSION['user'])) {
+    header("Location: /login");
+    exit;
+}
+
+$timeout = 3600; // 1 jam
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) > $timeout) {
+    session_unset();
+    session_destroy();
+    header("Location: /login");
+    exit;
+}
+
+// refresh waktu aktif
+$_SESSION['last_activity'] = time();
+
 ?>
 
 <!DOCTYPE html>
@@ -45,15 +62,15 @@ $jumlah_tugas_selesai = count($tugasListSelesai);
                 <p class="text-[#808080]">Selamat Datang Nuis!</p>
             </div>
         </div>
-        <div class="exit flex items-center gap-4">
-            <svg width="30" height="29" viewBox="0 0 30 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6.5 13.4193C5.67157 13.4193 5 14.0909 5 14.9193C5 15.7477 5.67157 16.4193 6.5 16.4193V14.9193V13.4193ZM29.5607 15.98C30.1464 15.3942 30.1464 14.4444 29.5607 13.8587L20.0147 4.31271C19.4289 3.72692 18.4792 3.72692 17.8934 4.31271C17.3076 4.8985 17.3076 5.84824 17.8934 6.43403L26.3787 14.9193L17.8934 23.4046C17.3076 23.9904 17.3076 24.9401 17.8934 25.5259C18.4792 26.1117 19.4289 26.1117 20.0147 25.5259L29.5607 15.98ZM6.5 14.9193V16.4193L28.5 16.4193V14.9193V13.4193L6.5 13.4193V14.9193Z" fill="#808080" />
-                <path d="M9.68852 27.5L4.5 27.5C2.84315 27.5 1.5 26.1569 1.5 24.5L1.5 4.5C1.5 2.84315 2.84315 1.5 4.5 1.5L10.5 1.5" stroke="#808080" stroke-width="3" stroke-linecap="round" />
-            </svg>
-            <div>
-                <button class="text-[#808080]">Keluar</button>
+        <a href="/logout">
+            <div class="exit flex items-center gap-4 cursor-pointer">
+                <svg width="30" height="29" viewBox="0 0 30 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.5 13.4193C5.67157 13.4193 5 14.0909 5 14.9193C5 15.7477 5.67157 16.4193 6.5 16.4193V14.9193V13.4193ZM29.5607 15.98C30.1464 15.3942 30.1464 14.4444 29.5607 13.8587L20.0147 4.31271C19.4289 3.72692 18.4792 3.72692 17.8934 4.31271C17.3076 4.8985 17.3076 5.84824 17.8934 6.43403L26.3787 14.9193L17.8934 23.4046C17.3076 23.9904 17.3076 24.9401 17.8934 25.5259C18.4792 26.1117 19.4289 26.1117 20.0147 25.5259L29.5607 15.98ZM6.5 14.9193V16.4193L28.5 16.4193V14.9193V13.4193L6.5 13.4193V14.9193Z" fill="#808080" />
+                    <path d="M9.68852 27.5L4.5 27.5C2.84315 27.5 1.5 26.1569 1.5 24.5L1.5 4.5C1.5 2.84315 2.84315 1.5 4.5 1.5L10.5 1.5" stroke="#808080" stroke-width="3" stroke-linecap="round" />
+                </svg>
+                <div class="text-[#808080]">Keluar</div>
             </div>
-        </div>
+        </a>
     </header>
     <div class="h-auto min-h-screen bg-[#EEF4F8]">
         <div class="cards pt-10 items-center gap-2 justify-between max-w-7xl mx-auto flex flex-col md:flex-row">
