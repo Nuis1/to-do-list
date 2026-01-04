@@ -2,14 +2,6 @@
 require_once '../app/core/database.php';
 require_once '../app/controllers/TugasController.php';
 
-$controller = new TugasController($conn);
-$tugasList = $controller->index('all');
-$tugasListActive = $controller->index('Active');
-$tugasListSelesai = $controller->index('Selesai');
-$jumlah_tugas = count($tugasList);
-$jumlah_tugas_aktif = count($tugasListActive);
-$jumlah_tugas_selesai = count($tugasListSelesai);
-
 if (!isset($_SESSION['user'])) {
     header("Location: /login");
     exit;
@@ -23,9 +15,17 @@ if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) >
     exit;
 }
 
-// refresh waktu aktif
 $_SESSION['last_activity'] = time();
 
+$id_user = $_SESSION['user']['id'];
+
+$controller = new TugasController($conn);
+$tugasList = $controller->index('all', $id_user);
+$tugasListActive = $controller->index('Active', $id_user);
+$tugasListSelesai = $controller->index('Selesai', $id_user);
+$jumlah_tugas = count($tugasList);
+$jumlah_tugas_aktif = count($tugasListActive);
+$jumlah_tugas_selesai = count($tugasListSelesai);
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +59,7 @@ $_SESSION['last_activity'] = time();
             </svg>
             <div class="text flex-col ml-3">
                 <p class="font-bold">Daftar Tugas</p>
-                <p class="text-[#808080]">Selamat Datang Nuis!</p>
+                <p class="text-[#808080]">Selamat Datang <?= htmlspecialchars($_SESSION['user']['nama']); ?></p>
             </div>
         </div>
         <a href="/logout">

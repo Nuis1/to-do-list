@@ -2,9 +2,6 @@
 require_once '../app/core/database.php';
 require_once '../app/controllers/TugasController.php';
 
-$controller = new TugasController($conn);
-$tugasList = $controller->index('Selesai');
-
 if (!isset($_SESSION['user'])) {
     header("Location: /login");
     exit;
@@ -17,6 +14,15 @@ if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) >
     header("Location: /login");
     exit;
 }
+$_SESSION['last_activity'] = time();
+
+$id_user = $_SESSION['user']['id'];
+
+$controller = new TugasController($conn);
+$id_user = $_SESSION['user']['id'];
+$tugasList = $controller->index('Selesai', $id_user);
+
+
 ?>
 
 <?php foreach ($tugasList as $tugas): ?>

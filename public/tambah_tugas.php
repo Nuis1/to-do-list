@@ -8,6 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+session_start(); // Pastikan session sudah dimulai
+
+if (!isset($_SESSION['user']['id'])) {
+    echo json_encode(['success' => false, 'message' => 'User tidak terautentikasi']);
+    exit;
+}
+$id_pengguna = $_SESSION['user']['id'];
 $judul = trim($_POST['judul'] ?? '');
 $deskripsi = trim($_POST['deskripsi'] ?? '');
 $tanggal_tenggat = $_POST['tanggal_tenggat'] ?? '';
@@ -19,8 +26,8 @@ if (empty($judul) || empty($deskripsi) || empty($tanggal_tenggat)) {
 }
 
 try {
-    $stmt = $conn->prepare("INSERT INTO tugas (id_pengguna, judul, deskripsi, tanggal_tenggat, status) VALUES (1, ?, ?, ?, 'aktif')");
-    $stmt->bind_param("sss", $judul, $deskripsi, $tanggal_tenggat);
+    $stmt = $conn->prepare("INSERT INTO tugas (id_pengguna, judul, deskripsi, tanggal_tenggat, status) VALUES (?, ?, ?, ?, 'aktif')");
+    $stmt->bind_param("isss", $id_pengguna, $judul, $deskripsi, $tanggal_tenggat);
     
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'message' => 'Tugas berhasil ditambahkan']);

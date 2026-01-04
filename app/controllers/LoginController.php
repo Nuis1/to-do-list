@@ -18,6 +18,12 @@ class LoginController
         $user = new User();
         $result = $user->login($email, $password);
 
+        if (!$result) {
+        $_SESSION['error'] = "Email atau password salah";
+        header("Location: /login");
+        exit;
+    }
+
         if ($result) {
             $_SESSION['user'] = [
                 'id'    => $result['id_pengguna'],

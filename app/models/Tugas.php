@@ -8,17 +8,29 @@ class Tugas
         $this->conn = $conn;
     }
 
-    public function getAll($kondisi)
+    public function getAll($kondisi, $id_user)
     {
-        $query = 'SELECT * FROM tugas ';
+        $query = "SELECT * FROM tugas WHERE id_pengguna = ?";
+        $types = "i";
+        $params = [$id_user];
+
         if ($kondisi === 'Active') {
-            $query .= "WHERE status = 'aktif'";
+            $query .= " AND status = ?";
+            $types .= "s";
+            $params[] = "aktif";
         } elseif ($kondisi === 'Selesai') {
-            $query .= "WHERE status = 'selesai'";
+            $query .= " AND status = ?";
+            $types .= "s";
+            $params[] = "selesai";
         }
-        
-        return $this->conn->query($query);
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param($types, ...$params);
+        $stmt->execute();
+
+        return $stmt->get_result();
     }
+
 
     public function toggleStatus($id)
     {
@@ -37,7 +49,7 @@ class Tugas
         // Update status
         $update = $this->conn->prepare("UPDATE tugas SET status = ? WHERE id_tugas = ?");
         $update->bind_param("si", $statusBaru, $id);
-        
+
         return $update->execute();
     }
 }

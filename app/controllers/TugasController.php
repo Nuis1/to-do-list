@@ -16,9 +16,9 @@ class TugasController
         return $this->model;
     }
 
-    public function index($kondisi)
+    public function index($kondisi, $id_user)
     {
-        $result = $this->model->getAll($kondisi);
+        $result = $this->model->getAll($kondisi, $id_user);
         $today = new DateTime();
         $data = [];
 
