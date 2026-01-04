@@ -41,7 +41,7 @@ $tugasList = $controller->index('all', $id_user);
                         <div class="w-6 h-6 md:w-8 md:h-8 border-2 border-indigo-600 rounded-full hover:bg-indigo-50 transition-colors"></div>
                     <?php endif; ?>
                 </div>
-                
+
                 <div class="flex-1 min-w-0">
                     <p class="font-medium text-base md:text-lg mb-1 <?= strtolower($tugas['status']) === 'selesai' ? 'line-through text-gray-400' : '' ?>">
                         <?= htmlspecialchars($tugas['judul']) ?>
@@ -82,14 +82,12 @@ $tugasList = $controller->index('all', $id_user);
                     <?= $tugas['meta']['label'] ?>
                 </div>
                 <div class="flex gap-2 md:gap-4">
-                    <a href="edit.php?id=<?= $tugas['id_tugas'] ?>">
-                        <button class="cursor-pointer h-9 w-9 md:h-10 md:w-10 flex justify-center items-center hover:bg-gray-200 rounded duration-200 ease-in-out">
-                            <svg class="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3 17.25V21H6.75L17.81 9.93999L14.06 6.18999L3 17.25Z" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M20.71 7.04004C21.1 6.65004 21.1 6.02004 20.71 5.63004L18.37 3.29004C17.98 2.90004 17.35 2.90004 16.96 3.29004L15.13 5.12004L18.88 8.87004L20.71 7.04004Z" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </button>
-                    </a>
+                    <button onclick="openEditModal(<?= $tugas['id_tugas'] ?>, '<?= htmlspecialchars($tugas['judul'], ENT_QUOTES) ?>', '<?= htmlspecialchars($tugas['deskripsi'], ENT_QUOTES) ?>', '<?= $tugas['tanggal_tenggat'] ?>')" class="cursor-pointer h-9 w-9 md:h-10 md:w-10 flex justify-center items-center hover:bg-gray-200 rounded duration-200 ease-in-out">
+                        <svg class="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 17.25V21H6.75L17.81 9.93999L14.06 6.18999L3 17.25Z" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M20.71 7.04004C21.1 6.65004 21.1 6.02004 20.71 5.63004L18.37 3.29004C17.98 2.90004 17.35 2.90004 16.96 3.29004L15.13 5.12004L18.88 8.87004L20.71 7.04004Z" stroke="#808080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
                     <a href="delete.php?id=<?= $tugas['id_tugas'] ?>">
                         <button class="cursor-pointer h-9 w-9 md:h-10 md:w-10 flex justify-center items-center hover:bg-red-200 rounded duration-200 ease-in-out">
                             <svg class="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">

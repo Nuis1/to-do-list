@@ -9,7 +9,7 @@ function openModal() {
     modal.classList.remove('hidden');
     modal.classList.add('flex');
     document.body.style.overflow = 'hidden'; // Prevent scroll
-    
+
     // Set minimum date to today
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('tanggal_tenggat').setAttribute('min', today);
@@ -20,7 +20,7 @@ function closeModal() {
     modal.classList.add('hidden');
     modal.classList.remove('flex');
     document.body.style.overflow = 'auto'; // Enable scroll
-    
+
     // Reset form
     document.getElementById('formTambahTugas').reset();
 }
@@ -32,7 +32,7 @@ function closeModalOnOverlay(event) {
 }
 
 // Close modal with ESC key
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape') {
         closeModal();
     }
@@ -41,24 +41,24 @@ document.addEventListener('keydown', function(event) {
 // ========== FORM SUBMIT ==========
 async function submitForm(event) {
     event.preventDefault();
-    
+
     const formData = new FormData(event.target);
-    
+
     try {
         const response = await fetch('tambah_tugas.php', {
             method: 'POST',
             body: formData
         });
-        
+
         const result = await response.json();
-        
+
         if (result.success) {
             // Close modal
             closeModal();
-            
+
             // Update stats
             await updateStats();
-            
+
             // Reload active content
             const activeButton = document.querySelector('[class*="bg-[#4F46E5]"]');
             if (activeButton) {
@@ -66,7 +66,7 @@ async function submitForm(event) {
             } else {
                 buttonActive('content1', document.getElementById('button1'));
             }
-            
+
             // Show success message (optional)
             showNotification('Tugas berhasil ditambahkan!', 'success');
         } else {
@@ -82,7 +82,7 @@ async function updateStats() {
     try {
         const response = await fetch('get_stats.php');
         const stats = await response.json();
-        
+
         // Update dengan animasi
         animateNumber('stat-total', stats.total);
         animateNumber('stat-aktif', stats.aktif);
@@ -96,12 +96,12 @@ async function updateStats() {
 function animateNumber(elementId, newValue) {
     const element = document.getElementById(elementId);
     const currentValue = parseInt(element.textContent) || 0;
-    
+
     if (currentValue === newValue) return;
-    
+
     // Tambahkan efek highlight
     element.classList.add('animate-pulse');
-    
+
     // Animasi counter
     const duration = 300;
     const steps = 20;
@@ -109,11 +109,11 @@ function animateNumber(elementId, newValue) {
     const stepDuration = duration / steps;
     let current = currentValue;
     let step = 0;
-    
+
     const timer = setInterval(() => {
         step++;
         current += increment;
-        
+
         if (step >= steps) {
             element.textContent = newValue;
             clearInterval(timer);
@@ -124,6 +124,52 @@ function animateNumber(elementId, newValue) {
             element.textContent = Math.round(current);
         }
     }, stepDuration);
+}
+
+// modal edit tugas
+function openEditModal(id, judul, deskripsi, tanggal) {
+    document.getElementById('edit_id_tugas').value = id;
+    document.getElementById('edit_judul').value = judul;
+    document.getElementById('edit_deskripsi').value = deskripsi;
+    document.getElementById('edit_tanggal_tenggat').value = tanggal;
+    document.getElementById('modalEditOverlay').classList.remove('hidden');
+    document.getElementById('modalEditOverlay').classList.add('flex');
+}
+
+function closeEditModal() {
+    document.getElementById('modalEditOverlay').classList.add('hidden');
+    document.getElementById('modalEditOverlay').classList.remove('flex');
+}
+
+function closeEditModalOnOverlay(event) {
+    if (event.target.id === 'modalEditOverlay') {
+        closeEditModal();
+    }
+}
+
+function submitEditForm(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+
+    fetch('/edit_tugas.php', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                closeEditModal();
+                location.reload();
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan saat mengedit tugas');
+        });
 }
 
 async function toggleStatus(id) {

@@ -220,6 +220,81 @@ $jumlah_tugas_selesai = count($tugasListSelesai);
                 </form>
             </div>
         </div>
+        <!-- Modal Edit Tugas -->
+        <div id="modalEditOverlay" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" onclick="closeEditModalOnOverlay(event)">
+            <div class="bg-white rounded-2xl w-[90%] max-w-lg p-6 md:p-8 relative" onclick="event.stopPropagation()">
+                <!-- Header -->
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl md:text-2xl font-semibold text-gray-800">Edit Tugas</h2>
+                    <button onclick="closeEditModal()" class="text-gray-500 hover:text-gray-700 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Form -->
+                <form id="formEditTugas" onsubmit="submitEditForm(event)">
+                    <input type="hidden" id="edit_id_tugas" name="id_tugas">
+
+                    <!-- Judul Tugas -->
+                    <div class="mb-4">
+                        <label for="edit_judul" class="block text-gray-700 font-medium mb-2">
+                            Judul Tugas <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="edit_judul"
+                            name="judul"
+                            required
+                            placeholder="Masukkan judul tugas"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all" />
+                    </div>
+
+                    <!-- Deskripsi -->
+                    <div class="mb-4">
+                        <label for="edit_deskripsi" class="block text-gray-700 font-medium mb-2">
+                            Deskripsi <span class="text-red-500">*</span>
+                        </label>
+                        <textarea
+                            id="edit_deskripsi"
+                            name="deskripsi"
+                            required
+                            rows="4"
+                            placeholder="Masukkan deskripsi tugas"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"></textarea>
+                    </div>
+
+                    <!-- Tenggat Waktu -->
+                    <div class="mb-6">
+                        <label for="edit_tanggal_tenggat" class="block text-gray-700 font-medium mb-2">
+                            Tenggat Waktu <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="date"
+                            id="edit_tanggal_tenggat"
+                            name="tanggal_tenggat"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all" />
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="flex gap-3">
+                        <button
+                            type="button"
+                            onclick="closeEditModal()"
+                            class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                            Batal
+                        </button>
+                        <button
+                            type="submit"
+                            class="flex-1 px-4 py-3 bg-[#4F46E5] text-white rounded-lg font-medium hover:bg-[#4338CA] transition-colors">
+                            Simpan Perubahan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
 </body>
 
 </html>
